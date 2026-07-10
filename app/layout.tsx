@@ -6,7 +6,7 @@ import {
   IBM_Plex_Mono,
   Inter,
 } from "next/font/google";
-import { PortfolioIntro } from "@/components/intro/portfolio-intro";
+import { IntroRevealProvider } from "@/components/intro/intro-reveal-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,8 +52,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${barlowCondensed.variable} ${ibmPlexMono.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <PortfolioIntro />
-        {children}
+        <IntroRevealProvider>{children}</IntroRevealProvider>
       </body>
     </html>
   );

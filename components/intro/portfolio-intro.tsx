@@ -8,7 +8,15 @@ const WORD_TRANSITION_SECONDS = 0.14;
 const REDUCED_MOTION_HOLD_MS = 650;
 const EXIT_EASE = [0.76, 0, 0.24, 1] as const;
 
-export function PortfolioIntro() {
+type PortfolioIntroProps = Readonly<{
+  onExitStart?: () => void;
+  onExitComplete?: () => void;
+}>;
+
+export function PortfolioIntro({
+  onExitStart,
+  onExitComplete,
+}: PortfolioIntroProps) {
   const reduceMotion = useReducedMotion();
   const [greetingIndex, setGreetingIndex] = useState(0);
   const [showGreeting, setShowGreeting] = useState(true);
@@ -36,12 +44,7 @@ export function PortfolioIntro() {
   }, [lockScroll]);
 
   useEffect(() => {
-    let nextTimeout: ReturnType<typeof setTimeout> | undefined;
     let exitTimeout: ReturnType<typeof setTimeout> | undefined;
-
-    if (reduceMotion) {
-      setGreetingIndex(greetings.length - 1);
-    }
 
     const isLastGreeting =
       reduceMotion || greetingIndex === greetings.length - 1;
@@ -49,7 +52,7 @@ export function PortfolioIntro() {
       ? REDUCED_MOTION_HOLD_MS
       : greetings[greetingIndex].holdMs;
 
-    nextTimeout = setTimeout(() => {
+    const nextTimeout = setTimeout(() => {
       if (!mounted.current) return;
 
       if (!isLastGreeting) {
@@ -61,7 +64,10 @@ export function PortfolioIntro() {
 
       setShowGreeting(false);
       exitTimeout = setTimeout(() => {
-        if (mounted.current) setShowIntro(false);
+        if (mounted.current) {
+          onExitStart?.();
+          setShowIntro(false);
+        }
       }, WORD_TRANSITION_SECONDS * 1000);
     }, holdMs);
 
@@ -69,12 +75,19 @@ export function PortfolioIntro() {
       clearTimeout(nextTimeout);
       clearTimeout(exitTimeout);
     };
-  }, [greetingIndex, reduceMotion]);
+  }, [greetingIndex, onExitStart, reduceMotion]);
 
-  const greeting = greetings[greetingIndex];
+  const greeting = reduceMotion
+    ? greetings[greetings.length - 1]
+    : greetings[greetingIndex];
 
   return (
-    <AnimatePresence onExitComplete={() => setLockScroll(false)}>
+    <AnimatePresence
+      onExitComplete={() => {
+        setLockScroll(false);
+        onExitComplete?.();
+      }}
+    >
       {showIntro && (
         <motion.div
           className="fixed inset-0 z-[100] flex min-h-dvh w-full touch-none items-center justify-center overflow-visible bg-[#111111] px-5"
