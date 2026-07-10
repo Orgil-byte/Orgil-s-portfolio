@@ -32,9 +32,9 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="min-h-[calc(100svh-var(--header-height))] bg-[#F1EBDD] px-5 pt-[clamp(48px,9svh,76px)] pb-10 md:px-[clamp(32px,5vw,64px)] md:pt-[clamp(64px,12svh,128px)] md:pb-14"
+      className="flex flex-1 bg-[#F1EBDD] px-5 pt-[clamp(48px,9svh,76px)] pb-10 md:px-[clamp(32px,5vw,64px)] md:pt-[clamp(64px,12svh,128px)] md:pb-14"
     >
-      <div className="grid w-full grid-cols-[3px_minmax(0,1fr)] gap-4 md:grid-cols-[4px_minmax(0,1fr)] md:gap-8 lg:gap-9">
+      <div className="grid min-h-0 w-full flex-1 grid-cols-[3px_minmax(0,1fr)] gap-4 md:grid-cols-[4px_minmax(0,1fr)] md:gap-8 lg:gap-9">
         <motion.div
           aria-hidden="true"
           className="origin-bottom bg-[#E4542F]"
@@ -43,7 +43,7 @@ export function Hero() {
           variants={orangeRuleVariants(reduceMotion)}
         />
 
-        <div className="min-w-0">
+        <div className="grid min-w-0 grid-rows-[minmax(min-content,1fr)_auto] gap-[clamp(40px,8svh,72px)]">
           <h1
             id="hero-heading"
             className="font-display text-[clamp(3.625rem,18.2vw,6rem)] leading-[0.84] font-bold tracking-[-0.035em] text-[#111111] uppercase md:text-[clamp(6rem,11vw,7rem)] lg:text-[clamp(7rem,10.5vw,10rem)]"
@@ -66,7 +66,7 @@ export function Hero() {
             ))}
           </h1>
 
-          <div className="relative mt-[clamp(40px,8svh,72px)]">
+          <div className="relative">
             <motion.div
               aria-hidden="true"
               className="absolute top-0 left-0 h-px w-full origin-left bg-[rgba(17,17,17,0.42)]"

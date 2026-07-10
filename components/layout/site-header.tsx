@@ -35,7 +35,7 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="relative z-50 h-(--header-height) border-b border-[rgba(17,17,17,0.42)] bg-[#F1EBDD]">
+    <header className="relative z-50 h-(--header-height) shrink-0 border-b border-[rgba(17,17,17,0.42)] bg-[#F1EBDD]">
       <nav
         aria-label="Primary navigation"
         className="mx-auto flex h-full w-full items-center justify-between px-5 md:px-[clamp(32px,5vw,64px)]"
