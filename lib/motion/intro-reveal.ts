@@ -75,6 +75,40 @@ export function metadataVariants(reduceMotion: boolean): Variants {
   };
 }
 
+export function identityMarkVariants(reduceMotion: boolean): Variants {
+  if (reduceMotion) return reducedVariants;
+
+  return {
+    hidden: { y: 72, opacity: 0 },
+    visible: (index: number) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.34 + index * 0.06,
+        duration: 0.82,
+        ease: INTRO_REVEAL_EASE,
+      },
+    }),
+  };
+}
+
+export function identityStatementVariants(reduceMotion: boolean): Variants {
+  if (reduceMotion) return reducedVariants;
+
+  return {
+    hidden: { y: 28, opacity: 0 },
+    visible: (index: number) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.48 + index * 0.08,
+        duration: 0.65,
+        ease: INTRO_REVEAL_EASE,
+      },
+    }),
+  };
+}
+
 export function navigationItemVariants(reduceMotion: boolean): Variants {
   if (reduceMotion) return reducedVariants;
 
