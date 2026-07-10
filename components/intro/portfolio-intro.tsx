@@ -100,7 +100,7 @@ export function PortfolioIntro() {
             aria-hidden="true"
             className="flex max-w-full items-center justify-center gap-3 whitespace-nowrap"
           >
-            <span className="size-[7px] shrink-0 bg-[#E4542F] md:size-2" />
+            <span className="size-[7px] shrink-0 rounded-full bg-[#E4542F] md:size-2" />
             <AnimatePresence mode="wait">
               {showGreeting && (
                 <motion.span

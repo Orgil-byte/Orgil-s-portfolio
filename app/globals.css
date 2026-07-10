@@ -3,6 +3,7 @@
 :root {
   --background: #f1ebdd;
   --foreground: #111111;
+  --header-height: 68px;
 }
 
 @theme inline {
@@ -10,10 +11,30 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-body: var(--font-inter);
+  --font-display: var(--font-barlow-condensed);
+  --font-editorial-mono: var(--font-ibm-plex-mono);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 76px;
+  }
+}
+
+html {
+  background: var(--background);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #e4542f;
+  color: #111111;
 }
