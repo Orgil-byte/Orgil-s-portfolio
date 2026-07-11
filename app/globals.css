@@ -55,8 +55,24 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+.contact-footer {
+  min-height: 100vh;
+  min-height: 100svh;
+  height: auto;
+  overflow: visible;
+}
+
+@supports (min-height: 100dvh) {
+  .contact-footer {
+    min-height: 100dvh;
+  }
+}
+
 .contact-pill {
   display: inline-flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   min-height: 48px;
   align-items: center;
   justify-content: space-between;
@@ -67,6 +83,7 @@ button {
   font-size: 0.6875rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
   transition:
     border-color 200ms ease,
     background-color 200ms ease,
@@ -338,6 +355,10 @@ a.contact-pill:hover {
   .project-row:hover h3 {
     color: #e4542f;
   }
+
+  .project-row--preview-active:hover {
+    cursor: none;
+  }
 }
 
 @media (max-width: 520px) {
@@ -361,6 +382,8 @@ a.contact-pill:hover {
 @media print {
   header,
   .project-preview-follower,
+  .project-preview-cursor,
+  .project-preview-label,
   footer {
     display: none !important;
   }

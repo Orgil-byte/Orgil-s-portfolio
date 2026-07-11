@@ -13,6 +13,10 @@ export const navigationItems = [
 export const desktopNavigationItems = navigationItems.slice(1);
 
 export const contact = {
+  phone: {
+    display: "+976 8885 4768",
+    href: "tel:+97688854768",
+  },
   email: null,
   github: "https://github.com/Orgil-byte",
   linkedin: null,
@@ -34,7 +38,132 @@ export const profile = {
     "I build polished web products and practical AI systems across frontend, backend, and product architecture.",
 } as const;
 
+export type CapabilityToolGroup = Readonly<{
+  label: string;
+  tools: readonly string[];
+}>;
+
+export type CapabilityCategory = Readonly<{
+  id: string;
+  index: string;
+  title: string;
+  summaryCount: number;
+  groups: readonly CapabilityToolGroup[];
+}>;
+
+const infrastructureTools = [
+  "Supabase Postgres",
+  "Supabase Auth",
+  "Supabase Storage",
+  "Object storage",
+  "Vercel",
+  "Environment configuration",
+  "Deployment workflows",
+] as const;
+
 export const capabilityGroups = [
+  {
+    id: "frontend",
+    index: "01",
+    title: "Frontend",
+    summaryCount: 6,
+    groups: [
+      {
+        label: "Core",
+        tools: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"],
+      },
+      {
+        label: "UI & Styling",
+        tools: [
+          "Tailwind CSS",
+          "Responsive design",
+          "Accessible UI",
+          "CSS layouts",
+          "Component systems",
+        ],
+      },
+      {
+        label: "Interaction & State",
+        tools: ["Framer Motion", "Client-side state management"],
+      },
+      {
+        label: "Delivery",
+        tools: ["Git", "GitHub", "Vercel"],
+      },
+    ],
+  },
+  {
+    id: "backend",
+    index: "02",
+    title: "Backend",
+    summaryCount: 5,
+    groups: [
+      {
+        label: "Runtime & Frameworks",
+        tools: ["Node.js", "Bun", "Hono", "Express"],
+      },
+      {
+        label: "APIs & Validation",
+        tools: ["REST APIs", "API design", "Structured data validation"],
+      },
+      {
+        label: "Database & ORM",
+        tools: [
+          "PostgreSQL",
+          "Prisma",
+          "Drizzle ORM",
+          "pgvector",
+          "Database schema design",
+        ],
+      },
+      { label: "Platforms & Services", tools: infrastructureTools },
+    ],
+  },
+  {
+    id: "ai-integration",
+    index: "03",
+    title: "AI Integration",
+    summaryCount: 5,
+    groups: [
+      {
+        label: "Models & APIs",
+        tools: [
+          "OpenAI API",
+          "Gemini API",
+          "Vision-model workflows",
+          "Structured model output",
+        ],
+      },
+      {
+        label: "Knowledge Systems",
+        tools: [
+          "RAG",
+          "Embeddings",
+          "Vector search",
+          "pgvector",
+          "Document ingestion",
+          "Chunking",
+          "Source citations",
+          "Retrieval pipelines",
+        ],
+      },
+      {
+        label: "AI Product Architecture",
+        tools: [
+          "Prompt pipelines",
+          "Human review workflows",
+          "BYOK architecture",
+          "Multi-tenant AI workspaces",
+          "Model-provider integration",
+          "AI-assisted extraction",
+          "AI response validation",
+        ],
+      },
+    ],
+  },
+] as const satisfies readonly CapabilityCategory[];
+
+export const profileToolbox = [
   {
     title: "Frontend",
     items: [
@@ -56,7 +185,7 @@ export const capabilityGroups = [
     ],
   },
   {
-    title: "AI Integration",
+    title: "AI integration",
     items: [
       "LLM API integration",
       "RAG systems",
@@ -65,12 +194,6 @@ export const capabilityGroups = [
       "OpenAI / Gemini APIs",
     ],
   },
-] as const;
-
-export const profileToolbox = [
-  { title: "Frontend", items: capabilityGroups[0].items },
-  { title: "Backend", items: capabilityGroups[1].items },
-  { title: "AI integration", items: capabilityGroups[2].items },
   {
     title: "Infrastructure",
     items: [
