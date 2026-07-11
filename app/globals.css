@@ -35,6 +35,16 @@ body {
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
 }
 
+.mobile-nav-overlay {
+  height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  .mobile-nav-overlay {
+    height: 100dvh;
+  }
+}
+
 ::selection {
   background: #e4542f;
   color: #111111;

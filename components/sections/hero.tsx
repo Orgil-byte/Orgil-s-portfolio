@@ -11,7 +11,7 @@ import {
   orangeRuleVariants,
 } from "@/lib/motion/intro-reveal";
 
-const headline = ["I Build", "Useful", "Software"] as const;
+const headline = ["Welcome to", "my", "Portfolio"] as const;
 const mongolianName = ["ᠣᠷᠭᠢᠯ", "ᠥᠯᠵᠡᠢᠲᠣᠭᠲᠠᠬᠤ"] as const;
 
 const metadata = [
