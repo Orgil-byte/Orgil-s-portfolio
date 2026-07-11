@@ -5,10 +5,11 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useIntroReveal } from "@/components/intro/intro-reveal-provider";
 import { MobileNavigationOverlay } from "@/components/layout/mobile-navigation-overlay";
 import { desktopNavigationItems } from "@/components/layout/navigation-data";
+import { useExperience } from "@/components/providers/experience-provider";
+import type { NavigationHref } from "@/data/site";
 import { navigationItemVariants } from "@/lib/motion/intro-reveal";
 
 export function SiteHeader() {
-  const [activeHref, setActiveHref] = useState("#");
   const [headerVisible, setHeaderVisible] = useState(true);
   const [menuMounted, setMenuMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,6 +25,7 @@ export function SiteHeader() {
   const restoreScrollRef = useRef(true);
   const pendingNavigationRef = useRef<string | null>(null);
   const reduceMotion = Boolean(useReducedMotion());
+  const { activeHref, navigateHome, pauseScroll } = useExperience();
   const { phase } = useIntroReveal();
   const initial = phase === "complete" ? false : "hidden";
   const animate = phase === "waiting" ? "hidden" : "visible";
@@ -78,40 +80,21 @@ export function SiteHeader() {
     pendingNavigationRef.current = null;
     if (!href) return;
 
-    requestAnimationFrame(() => {
-      if (href === "#") {
-        history.replaceState(
-          null,
-          "",
-          `${location.pathname}${location.search}`,
-        );
-        window.scrollTo({
-          top: 0,
-          behavior: reduceMotion ? "auto" : "smooth",
-        });
-        return;
-      }
-
-      const target = document.querySelector<HTMLElement>(href);
-      if (target) {
-        target.scrollIntoView({
-          behavior: reduceMotion ? "auto" : "smooth",
-          block: "start",
-        });
-      } else {
-        history.pushState(null, "", href);
-      }
-    });
-  }, [reduceMotion, unlockScroll]);
+    requestAnimationFrame(() => navigateHome(href as NavigationHref));
+  }, [navigateHome, unlockScroll]);
 
   const navigateFromMenu = useCallback(
     (href: string) => {
-      setActiveHref(href);
       pendingNavigationRef.current = href;
       closeMenu(false);
     },
     [closeMenu],
   );
+
+  useEffect(() => {
+    pauseScroll(menuOpen);
+    return () => pauseScroll(false);
+  }, [menuOpen, pauseScroll]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -166,6 +149,10 @@ export function SiteHeader() {
           initial={initial}
           animate={animate}
           variants={itemVariants}
+          onClick={(event) => {
+            event.preventDefault();
+            navigateHome("#");
+          }}
           className="font-editorial-mono min-w-0 text-[clamp(0.625rem,3.2vw,0.75rem)] leading-none font-medium tracking-[-0.055em] whitespace-nowrap uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E4542F] md:text-[0.8rem]"
         >
           {"{ OU } ORGIL ULZIITOGTOKH"}
@@ -182,7 +169,12 @@ export function SiteHeader() {
             >
               <a
                 href={item.href}
-                className="font-editorial-mono relative block py-2 text-xs font-medium tracking-[0.12em] uppercase after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-[#E4542F] after:transition-transform hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E4542F]"
+                aria-current={activeHref === item.href ? "location" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigateHome(item.href);
+                }}
+                className={`font-editorial-mono relative block py-2 text-xs font-medium tracking-[0.12em] uppercase after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:origin-left after:bg-[#E4542F] after:transition-transform hover:after:scale-x-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E4542F] ${activeHref === item.href ? "after:scale-x-100" : "after:scale-x-0"}`}
               >
                 {item.label}
               </a>

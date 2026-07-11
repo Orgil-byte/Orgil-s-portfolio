@@ -25,14 +25,367 @@
 
 html {
   background: var(--background);
+  scroll-padding-top: calc(var(--header-height) + 16px);
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact-pill {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(247, 243, 234, 0.45);
+  padding: 12px 18px;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+a.contact-pill:hover {
+  border-color: #e4542f;
+  background: #e4542f;
+  color: #111111;
+}
+
+.contact-pill:focus-visible {
+  outline: 2px solid #e4542f;
+  outline-offset: 4px;
+}
+
+.case-study-lead {
+  max-width: 50rem;
+  font-size: clamp(1.25rem, 2.35vw, 2rem);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+}
+
+.case-study-statement {
+  max-width: 60rem;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.project-mobile-visual,
+.project-mobile-view {
+  display: block;
+}
+
+.project-mobile-view {
+  display: flex;
+}
+
+.project-mock {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  background: #e8e1d2;
+  color: #111111;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: clamp(0.45rem, 0.75vw, 0.75rem);
+  line-height: 1.4;
+}
+
+.project-mock__bar,
+.project-mock__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #111111;
+  padding: 0.72em 1em;
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+}
+
+.project-mock__footer {
+  margin-top: auto;
+  border-top: 1px solid #111111;
+  border-bottom: 0;
+}
+
+.project-mock__workspace {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 0.72fr 1.8fr;
+}
+
+.project-mock__workspace aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.78em;
+  border-right: 1px solid #111111;
+  padding: 1.3em 1em;
+}
+
+.project-mock__workspace aside strong {
+  margin-bottom: 0.6em;
+  color: #e4542f;
+}
+
+.project-mock__workspace aside span {
+  opacity: 0.52;
+}
+
+.project-mock__workspace aside .is-active {
+  border-left: 2px solid #e4542f;
+  padding-left: 0.55em;
+  opacity: 1;
+}
+
+.project-mock__answer {
+  padding: 1.3em;
+}
+
+.project-mock__answer > p {
+  max-width: 26em;
+  margin-top: 0.9em;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.project-mock__response {
+  margin-top: 1.1em;
+  border-top: 1px solid rgba(17, 17, 17, 0.28);
+  padding-top: 0.9em;
+  opacity: 0.7;
+}
+
+.project-mock__sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7em;
+  margin-top: 1.1em;
+}
+
+.project-mock__sources span {
+  border: 1px solid #111111;
+  padding: 0.35em 0.5em;
+}
+
+.project-mock--grading {
+  background: #111111;
+  color: #f1ebdd;
+}
+
+.project-mock--grading .project-mock__bar,
+.project-mock--grading .project-mock__footer {
+  border-color: rgba(241, 235, 221, 0.45);
+}
+
+.project-mock__grading {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 0.8fr 1.4fr;
+  gap: 1.2em;
+  padding: 1.4em;
+}
+
+.project-mock__scan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  border: 1px solid rgba(241, 235, 221, 0.45);
+  padding: 0.9em;
+}
+
+.project-mock__scan > span {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(241, 235, 221, 0.2);
+  padding-bottom: 0.25em;
+}
+
+.project-mock__score {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-mock__processing {
+  width: fit-content;
+  background: #e4542f;
+  padding: 0.3em 0.55em;
+  color: #111111;
+}
+
+.project-mock__score > strong {
+  margin: 0.15em 0;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 4.8em;
+  line-height: 1;
+}
+
+.project-mock__score > div {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 0.6fr;
+  margin-top: auto;
+  border-top: 1px solid rgba(241, 235, 221, 0.4);
+}
+
+.project-mock__score > div span {
+  border-right: 1px solid rgba(241, 235, 221, 0.25);
+  border-bottom: 1px solid rgba(241, 235, 221, 0.25);
+  padding: 0.38em;
+}
+
+.project-mock--rag {
+  background: #cbc4b5;
+}
+
+.project-mock__rag {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 0.75fr 1.4fr;
+  gap: 1em;
+  padding: 1.35em;
+}
+
+.project-mock__nodes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-mock__nodes span {
+  width: 100%;
+  border: 1px solid #111111;
+  padding: 0.55em;
+  text-align: center;
+}
+
+.project-mock__nodes i {
+  display: block;
+  width: 1px;
+  height: 1.2em;
+  background: #111111;
+}
+
+.project-mock__chat {
+  border: 1px solid #111111;
+  padding: 1em;
+}
+
+.project-mock__chat p {
+  margin-top: 1.4em;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.3em;
+  line-height: 1.4;
+}
+
+.project-mock__chat div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 1.5em;
+  border-top: 1px solid #111111;
+  padding-top: 0.8em;
+}
+
+.project-mock__chat strong {
+  color: #b83b1d;
+}
+
+.project-mock--compact .project-mock__bar,
+.project-mock--compact .project-mock__footer {
+  padding: 0.55em 0.8em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-mobile-visual,
+  .project-mobile-view,
+  .project-mobile-arrow {
+    display: none;
+  }
+
+  .project-row:hover h3 {
+    color: #e4542f;
+  }
+}
+
+@media (max-width: 520px) {
+  .project-mock__workspace {
+    grid-template-columns: 0.62fr 1.5fr;
+  }
+
+  .project-mock__answer > p,
+  .project-mock__chat p {
+    font-size: 1.05em;
+  }
+
+  .project-mock__response,
+  .project-mock__sources,
+  .project-mock__score > div,
+  .project-mock__footer {
+    display: none;
+  }
+}
+
+@media print {
+  header,
+  .project-preview-follower,
+  footer {
+    display: none !important;
+  }
+
+  body,
+  main,
+  section {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .mobile-nav-overlay {
