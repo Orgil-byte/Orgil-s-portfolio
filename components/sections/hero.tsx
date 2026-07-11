@@ -12,7 +12,7 @@ import {
 } from "@/lib/motion/intro-reveal";
 
 const headline = ["I Build", "Useful", "Software"] as const;
-const monogram = ["{", "OU", "}"] as const;
+const mongolianName = ["ᠣᠷᠭᠢᠯ", "ᠥᠯᠵᠡᠢᠲᠣᠭᠲᠠᠬᠤ"] as const;
 
 const metadata = [
   { label: "[ ROLE ]", value: "SOFTWARE ENGINEER" },
@@ -74,22 +74,52 @@ export function Hero() {
 
             <div className="min-w-0 md:self-center">
               <div
-                aria-hidden="true"
-                className="font-display ml-auto w-fit text-[clamp(5.5rem,25vw,7rem)] leading-[0.68] font-bold tracking-[-0.04em] md:ml-0 md:text-[clamp(7rem,10vw,12rem)]"
+                role="img"
+                aria-label="Orgil Ulziitogtokh"
+                className="ml-auto flex w-fit items-center gap-2 md:ml-0 md:gap-3"
               >
-                {monogram.map((character, index) => (
-                  <span key={character} className="block overflow-hidden">
+                <span aria-hidden="true" className="block overflow-hidden">
+                  <motion.span
+                    className="font-display block text-[clamp(4.5rem,18vw,6rem)] leading-none font-bold text-[#E4542F] md:text-[clamp(6rem,8vw,9rem)]"
+                    custom={0}
+                    initial={initial}
+                    animate={animate}
+                    variants={markVariants}
+                  >
+                    {"{"}
+                  </motion.span>
+                </span>
+
+                {mongolianName.map((word, index) => (
+                  <span
+                    key={word}
+                    aria-hidden="true"
+                    className="block overflow-hidden py-[0.2em]"
+                  >
                     <motion.span
-                      className={`block ${character === "OU" ? "text-[#111111]" : "text-[#E4542F]"}`}
-                      custom={index}
+                      lang="mn-Mong"
+                      className="font-mongolian block text-[clamp(2rem,min(9vw,4.5svh),2.5rem)] text-[#111111] [text-orientation:mixed] [writing-mode:vertical-lr] md:text-[clamp(2.75rem,min(4vw,6svh),3.5rem)]"
+                      custom={index + 1}
                       initial={initial}
                       animate={animate}
                       variants={markVariants}
                     >
-                      {character}
+                      {word}
                     </motion.span>
                   </span>
                 ))}
+
+                <span aria-hidden="true" className="block overflow-hidden">
+                  <motion.span
+                    className="font-display block text-[clamp(4.5rem,18vw,6rem)] leading-none font-bold text-[#E4542F] md:text-[clamp(6rem,8vw,9rem)]"
+                    custom={3}
+                    initial={initial}
+                    animate={animate}
+                    variants={markVariants}
+                  >
+                    {"}"}
+                  </motion.span>
+                </span>
               </div>
 
               <div className="mt-6 text-left md:mt-7">
